@@ -12,7 +12,7 @@ The current backend is provided by [Saxon (Home Edition)](http://www.saxonica.co
 <img src="https://jitpack.io/v/metafacture/metafacture-xdm-plugin.svg" alt="https://jitpack.io/v/metafacture/metafacture-xdm-plugin.svg" />
 </figure>
 
-`gradlew clean test fatJar`
+`sh gradlew clean test fatJar`
 
 Produces:
 
@@ -117,3 +117,4 @@ Decomposes a XDM Node into XML events.
 Flux:
 
 `> | decode-xml | sax-to-xdm | xdm-to-sax | ...`
+
