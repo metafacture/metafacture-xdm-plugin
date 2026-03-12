@@ -1,0 +1,120 @@
+# metafacture-xdm-plugin
+
+A plugin for [metafacture](https://github.com/metafacture/metafacture-core) that extends it’s XML features.
+
+The [XDM](https://en.wikipedia.org/wiki/XQuery_and_XPath_Data_Model) (XQuery and XPath Data Model) module enables the transformation of XML documents through XSLT.
+
+The current backend is provided by [Saxon (Home Edition)](http://www.saxonica.com/products/PD9.8/HE.pdf).
+
+## Build
+
+<figure>
+<img src="https://jitpack.io/v/metafacture/metafacture-xdm-plugin.svg" alt="https://jitpack.io/v/metafacture/metafacture-xdm-plugin.svg" />
+</figure>
+
+`sh gradlew clean test fatJar`
+
+Produces:
+
+- `metafacture-xdm-VERSION-plugin.jar` in `build/libs`
+
+Place the JAR inside the `plugins` directory of your `metafacture-core` distribution.
+
+## Command Reference
+
+| Command | In | Out |
+|--------|--------|--------|
+| encode-transformation | XmlReceiver | String |
+| sax-to-xdm | XmlReceiver | XdmReceiver |
+| transform | XdmReceiver | XdmReceiver |
+| xdm-to-sax | XdmReceiver | XmlReceiver |
+| xdm-to-xml | XdmReceiver | String |
+
+### encode-transformation
+
+#### Description
+
+Serializes the transformation of a XDM Node.
+
+#### Syntax
+
+`encode-transformation(stylesheet)`
+
+#### Parameters
+
+-   `stylesheet`: A XSL file.
+
+#### Examples
+
+Flux:
+
+`... | encode-transformation("stylesheet.xsl") | print;`
+
+### sax-to-xdm
+
+#### Description
+
+Builds a XDM Node from XML events.
+
+#### Syntax
+
+`sax-to-xdm`
+
+#### Example
+
+Flux:
+
+`&gt; | decode-xml | sax-to-xdm | ...`
+
+### transform
+
+#### Description
+
+Transforms a XDM Node into a new XDM Node.
+
+#### Syntax
+
+`transform(stylesheet)`
+
+#### Parameters
+
+-   `stylesheet`: A XSL file.
+
+#### Examples
+
+Flux:
+
+`... | tranform("transformation.xsl") | encode-transformation("csv.xsl") | print;`
+
+### xdm-to-xml
+
+#### Description
+
+Serializes a XDM Node into it’s XML representation.
+
+#### Syntax
+
+`xdm-to-xml`
+
+#### Examples
+
+Flux:
+
+`... | xdm-to-xml | print;`
+
+### xdm-to-sax
+
+#### Description
+
+Decomposes a XDM Node into XML events.
+
+#### Syntax
+
+`xdm-to-sax`
+
+#### Example
+
+Flux:
+
+`> | decode-xml | sax-to-xdm | xdm-to-sax | ...`
+

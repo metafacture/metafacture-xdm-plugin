@@ -1,6 +1,6 @@
-"example.xml"
+FLUX_DIR + "example.xml"
 | open-file
 | decode-xml
 | sax-to-xdm
-| encode-transformation("example.xsl")
+| encode-transformation(FLUX_DIR + "example.xsl")
 | print;

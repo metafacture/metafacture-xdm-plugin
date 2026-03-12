@@ -2,10 +2,9 @@ group 'org.metafacture'
 version '0.4.1'
 
 apply plugin: 'java'
-apply plugin: 'maven'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 compileJava.options.encoding = 'UTF-8'
 
 repositories {
@@ -13,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    compile 'net.sf.saxon:Saxon-HE:9.8.0-10'
+    implementation 'net.sf.saxon:Saxon-HE:9.8.0-10'
     implementation 'org.metafacture:metafacture-framework:5.0.0'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.5.5'
@@ -22,14 +21,14 @@ dependencies {
 
 task fatJar(type: Jar) {
     dependencies {
-        compile 'net.sf.saxon:Saxon-HE:9.8.0-10'
+        implementation 'net.sf.saxon:Saxon-HE:9.8.0-10'
     }
 
     excludes = ['META-INF/SAXONICA.*', 'META-INF/maven/**', 'META-INF/services/**']
 
     from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
-    archiveName = archivesBaseName.replace('-plugin', '') + '-' + version + '-plugin' + '.jar'
+    archiveFileName = archivesBaseName.replace('-plugin', '') + '-' + version + '-plugin' + '.jar'
     with jar
 }
